@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SongController {
@@ -23,13 +20,13 @@ public class SongController {
     }
 
     @ResponseStatus(value = HttpStatus.OK)
-    @GetMapping(value = "/api/songs", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SongsDetailsDTO>> getSongsByTitle(@RequestParam String title) {
+    @GetMapping(value = "/api/songs/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SongsDetailsDTO>> getSongsByTitle(@PathVariable String title) {
         return ResponseEntity.ok(songService.getSongsByTitle(title));
     }
 
     @ResponseStatus(value = HttpStatus.OK)
-    @GetMapping(value = "/api/songs/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/api/songs", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SongsDetailsDTO>> getSongs() {
         return ResponseEntity.ok(songService.getSongs());
     }
