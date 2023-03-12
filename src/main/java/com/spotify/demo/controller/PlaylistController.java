@@ -1,7 +1,7 @@
 package com.spotify.demo.controller;
 
 import com.spotify.demo.model.dto.PlaylistsDTO;
-import com.spotify.demo.service.PlaylistsService;
+import com.spotify.demo.service.PlaylistService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PlaylistsController {
+public class PlaylistController {
 
-    private final PlaylistsService playlistsService;
+    private final PlaylistService playlistService;
 
     @Autowired
-    public PlaylistsController(PlaylistsService playlistsService) {
-        this.playlistsService = playlistsService;
+    public PlaylistController(PlaylistService playlistService) {
+        this.playlistService = playlistService;
     }
 
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(value = "/api/playlists", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PlaylistsDTO>> getPlaylists() {
-        return ResponseEntity.ok(playlistsService.getPlaylists());
+        return ResponseEntity.ok(playlistService.getPlaylists());
     }
 
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(value = "/api/playlistsByUser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PlaylistsDTO>> getUserPlaylists(@RequestParam() String userId) {
-        return ResponseEntity.ok(playlistsService.getPlaylistsByUserId(userId));
+        return ResponseEntity.ok(playlistService.getPlaylistsByUserId(userId));
     }
 }

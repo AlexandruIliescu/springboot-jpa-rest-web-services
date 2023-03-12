@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SongsRepository extends JpaRepository<Songs, Long> {
+public interface SongRepository extends JpaRepository<Songs, Long> {
 
     @Query(value = "select AR.name as artist, AB.title as album, S.title as song\n"
             + "from artists as AR\n"

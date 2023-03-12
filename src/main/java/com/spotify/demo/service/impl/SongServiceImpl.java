@@ -2,8 +2,8 @@ package com.spotify.demo.service.impl;
 
 import com.spotify.demo.exception.UserException;
 import com.spotify.demo.model.dto.SongsDetailsDTO;
-import com.spotify.demo.repository.SongsRepository;
-import com.spotify.demo.service.SongsService;
+import com.spotify.demo.repository.SongRepository;
+import com.spotify.demo.service.SongService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -13,22 +13,22 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SongsServiceImpl implements SongsService {
+public class SongServiceImpl implements SongService {
 
     private final ModelMapper modelMapper;
-    private final SongsRepository songsRepository;
+    private final SongRepository songRepository;
 
     @Autowired
-    public SongsServiceImpl(ModelMapper modelMapper, SongsRepository songsRepository) {
+    public SongServiceImpl(ModelMapper modelMapper, SongRepository songRepository) {
         this.modelMapper = modelMapper;
-        this.songsRepository = songsRepository;
+        this.songRepository = songRepository;
     }
 
     @Override
     public List<SongsDetailsDTO> getSongsByTitle(String title) {
         try {
             List<SongsDetailsDTO> songs = new ArrayList<>();
-            List<Object[]> songDetails = songsRepository.getSongsByTitle(title);
+            List<Object[]> songDetails = songRepository.getSongsByTitle(title);
             songDetails.forEach(resultSet -> songs.add(mapObjectArrayToSongDetails(resultSet)));
             return songs;
         } catch (DataAccessException e) {
@@ -40,7 +40,7 @@ public class SongsServiceImpl implements SongsService {
     public List<SongsDetailsDTO> getSongs() {
         try {
             List<SongsDetailsDTO> songs = new ArrayList<>();
-            List<Object[]> songDetails = songsRepository.getSongs();
+            List<Object[]> songDetails = songRepository.getSongs();
             songDetails.forEach(resultSet -> songs.add(mapObjectArrayToSongDetails(resultSet)));
             return songs;
         } catch (DataAccessException e) {
